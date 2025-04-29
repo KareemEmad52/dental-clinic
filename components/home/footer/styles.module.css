@@ -1,0 +1,43 @@
+.mainFooter {
+	background: #0E384C url('../../../public/footer-bg.svg') no-repeat;
+	background-position: center center;
+	background-size: auto;
+}
+
+
+.footerLinks h3{
+	color: white;
+	font-size: 20px;
+	font-weight: 600;
+	text-transform: capitalize;
+	margin-bottom: 20px;
+}
+
+.footerLinks ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.footerLinks ul li{
+	margin-bottom: 10px;
+}
+
+.footerLinks ul li:last-child{
+	margin-bottom: 0;
+}
+
+.footerLinks ul li a{
+	color: white;
+	text-transform: capitalize;
+	transition: all 0.3s ease-in-out;
+}
+
+.footerLinks ul li:hover a{
+	color: #1E84B5;
+}
+
+.footerQuickLinks,
+.footerSocialLinks{
+	margin-left: 50px;
+}

@@ -1,0 +1,389 @@
+.hero {
+  background: #eff8ff url("../../public/hero-bg.svg");
+  background-size: auto;
+  background-position: center center;
+  padding: 40px 0 0;
+}
+
+.starImage {
+  animation: zoom 1s linear 1s infinite;
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.heroIcons::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #0e384c;
+  border-radius: 100px;
+  transform: scale(0);
+  transition: all 0.4s ease-in-out;
+  height: 100%;
+}
+
+.heroIcons:hover::before {
+  transform: scale(1);
+}
+
+.heroIcons img {
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.heroIcons:hover img {
+  filter: brightness(0) invert(1);
+}
+
+.aboutImage {
+  background: url("../../public/about-bg-image.svg") no-repeat;
+  background-position: center center;
+  background-size: auto;
+  position: relative;
+  margin-right: 50px;
+  padding-bottom: 200px;
+}
+
+.aboutImg1 {
+  width: 410px;
+}
+
+.aboutImg2 figure,
+.aboutImg1 figure {
+  display: block;
+}
+
+.aboutImg1 img {
+  aspect-ratio: 1 /0.96;
+  object-fit: cover;
+  border-radius: 40px;
+}
+
+.aboutImg2 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.aboutImg2 img {
+  aspect-ratio: 1 /0.72;
+  object-fit: cover;
+  border: 7px solid white;
+  border-radius: 40px;
+}
+
+.aboutExperience {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(-50%, 50%);
+}
+
+.aboutExperience img {
+  animation: rotate 30s infinite linear;
+}
+
+.about-us-body {
+  margin-bottom: 40px;
+}
+
+.aboutUsBody ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.aboutUsBody ul li {
+  position: relative;
+  width: calc(50% - 10px);
+  font-weight: 600;
+  color: var(--primary-color);
+  text-transform: capitalize;
+  padding-left: 30px;
+}
+
+.aboutUsBody ul li:before {
+  content: "\f058";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--accent-color);
+  display: inline-block;
+  line-height: normal;
+  position: absolute;
+  top: 3px;
+  left: 0;
+}
+
+.imageAnime {
+  position: relative;
+  overflow: hidden;
+}
+
+.imageAnime:after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 0%;
+  left: 50%;
+  top: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%) rotate(-45deg);
+  z-index: 1;
+}
+
+.imageAnime:hover:after {
+  height: 250%;
+  transition: all 600ms linear;
+  background-color: transparent;
+}
+
+.reveal {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.reveal img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -webkit-transform-origin: left;
+  transform-origin: left;
+}
+
+.services {
+  position: relative;
+  background-image: url(../../public/our-service-bg.svg),
+    linear-gradient(180deg, #eff8ff 65%, white 35%);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: auto;
+}
+
+.servicesCard {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.servicesCard::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  background-color: #0e384c;
+  border-radius: 0px;
+  transition: all 0.4s ease-in-out;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+.servicesCard:hover::before {
+  top: 0;
+}
+
+.servicesCard:hover .serviceCardImage {
+  filter: brightness(0) invert(1);
+}
+
+.clinicSection {
+  position: relative;
+  background: url("../../public/visit-clinic-bg.jpg") no-repeat;
+  background-position: center center;
+  background-size: auto;
+  background-attachment: fixed;
+  border-radius: 40px;
+  padding: 120px 0;
+}
+
+.clinicSection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #0e384c;
+  border-radius: 40px;
+  opacity: 60%;
+  width: 100%;
+  height: 100%;
+}
+
+.visitClinicContent {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+.visitClinicHeading .visitImage {
+  filter: brightness(0) invert(1);
+}
+
+.ourTeam{
+  background: #EFF8FF url(../../public/our-team-bg.svg) no-repeat;
+	background-position: top center;
+	background-size: auto;
+}
+
+.ourTeamSocialIcon{
+  filter: brightness(0) invert(1);
+}
+
+
+.contactGoogleMap .googleMapIframe,
+.contactGoogleMap .googleMapIframe iframe{
+	width: 100%;
+	height: 600px;
+	border-radius: 30px;
+}
+
+.contactGoogleMap .googleMapIframe iframe{
+	filter: grayscale(1);
+	transition: all 0.3s ease-in-out;
+}
+
+.contactGoogleMap .googleMapIframe iframe:hover{
+	filter: grayscale(0);
+}
+
+
+.contactNowInfo{
+	margin-bottom: 40px;
+}
+
+.contactInfoList{
+	position: relative;
+    padding-left: 38px;
+    margin-bottom: 30px;
+}
+
+.contactInfoList:last-child{
+	margin-bottom: 0;
+}
+
+.contactInfoList .iconBox{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.contactInfoList .iconBox img{
+	width: 100%;
+	max-width: 28px;
+}
+
+.contactInfoList .contactInfoContent p{
+	margin: 0;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .about-us {
+    padding: 50px 0;
+  }
+
+  .aboutImage {
+    max-width: 560px;
+    margin-right: 0px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    padding-bottom: 150px;
+  }
+
+  .aboutUsBody {
+    margin-bottom: 30px;
+  }
+
+  .contactGoogleMap .googleMapIframe{
+		margin-bottom: 30px;
+	}
+
+	.contactGoogleMap .googleMapIframe,
+	.contactGoogleMap .googleMapIframe iframe{
+		height: 450px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+  .aboutImage {
+    max-width: 100%;
+    background-size: contain;
+    padding-bottom: 80px;
+  }
+
+  .aboutImg1 {
+    width: 100%;
+  }
+
+  .aboutImg2 {
+    width: 250px;
+  }
+
+  .aboutExperience {
+    position: absolute;
+    top: auto;
+    right: auto;
+    bottom: 0;
+    transform: translate(50px, -30px);
+  }
+
+  .aboutExperience img {
+    max-width: 100px;
+  }
+
+  .aboutUsBody ul {
+    display: block;
+  }
+
+  .aboutUsBody ul li {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .aboutUsBody ul li:last-child {
+    margin-bottom: 0;
+  }
+
+  .contactGoogleMap .googleMapIframe,
+	.contactGoogleMap .googleMapIframe iframe{
+        height: 350px;
+    }
+}

@@ -1,0 +1,43 @@
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  background-image: url("../../public//arrow-blue.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 10px auto;
+  transform: translate(-10px, -50%);
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.btn:hover:after{
+	transform: translate(-10px, -50%) rotate(45deg);
+	background-size: 10px auto;
+}
+
+
+.btn::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 100%;
+  border-radius: 99px;
+  background: #0E384C;
+  transition: all 0.4s ease-in-out;
+  /* z-index: -1; */
+} 
+
+.btn:hover::before {
+  width: 100%;
+}
