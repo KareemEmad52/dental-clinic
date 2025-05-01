@@ -5,12 +5,14 @@ import { Separator } from '../ui/separator'
 import { ArrowRight, CalendarCheck2, Hospital, UsersRound } from 'lucide-react'
 import DentalStatsCounter from '../home-counter-section'
 import Footer from './footer/footer'
+import { auth } from '@/lib/auth'
 
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await auth()
+  console.log(session);
   return (
     <>
-
       <section className={`${styles.hero} `}>
         <div className="container">
           <div className='w-full flex flex-col lg:items-center lg:flex-row '>
