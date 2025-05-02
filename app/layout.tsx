@@ -4,6 +4,9 @@ import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/lib/auth";
 import { Toaster } from 'react-hot-toast';
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/ui/app-sidebar";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,8 +41,14 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
       >
         <SessionProvider session={session}>
-          <Toaster />
-          {children}
+          <SidebarProvider>
+            <AppSidebar />
+            {/* <SidebarTrigger /> */}
+            <Toaster />
+            <main className="w-full ">
+            {children}
+            </main>
+          </SidebarProvider>
         </SessionProvider>
       </body>
     </html>

@@ -6,6 +6,9 @@ import { ArrowRight, CalendarCheck2, Hospital, UsersRound } from 'lucide-react'
 import DentalStatsCounter from '../home-counter-section'
 import Footer from './footer/footer'
 import { auth } from '@/lib/auth'
+import HeroSection from './HeroSection/HeroSection'
+import CallToActionSection from './callToActionSection/CallToAction'
+import AboutSection from './AboutUs/AboutUs'
 
 
 export default async function HomePage() {
@@ -13,163 +16,16 @@ export default async function HomePage() {
   console.log(session);
   return (
     <>
-      <section className={`${styles.hero} `}>
-        <div className="container">
-          <div className='w-full flex flex-col lg:items-center lg:flex-row '>
-            <div className='flex-1 flex  items-start flex-col lg:gap-5 '>
-              <h1 className='text-4xl lg:text-[54px] font-bold font-poppins text-mainDark  lg:leading-16'>
-                Experience <span className='text-mainLight'> Dental  Excellence </span> with a Gentle Touch
-              </h1>
+      
+      <HeroSection />
 
-              <div className='w-full flex justify-start mt-[20px]'>
-                <p className='lg:max-w-[500px] text-md text-[#527282] '>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal</p>
-              </div>
-
-              <div className='mt-[20px]'>
-                <AnimatedButton text='Make an Appointment' />
-              </div>
-              <Separator className='my-5 lg:mt-2 lg:mb-0' />
-              <div className={`w-full`}>
-                <ul className=' w-full flex flex-col justify-center lg:flex-row  lg:justify-start items-center gap-3'>
-                  <li>Google Rating <span>5.0</span></li>
-                  <li className='flex '>
-                    <Image src="/star-svgrepo-com.svg" width={15} height={15} alt='star' />
-                    <Image src="/star-svgrepo-com.svg" width={15} height={15} alt='star' />
-                    <Image src="/star-svgrepo-com.svg" width={15} height={15} alt='star' />
-                    <Image src="/star-svgrepo-com.svg" width={15} height={15} alt='star' />
-                    <Image src="/star-svgrepo-com.svg" width={15} height={15} alt='star' />
-                  </li>
-
-                  <li>based on 492 reviews</li>
-                </ul>
-              </div>
-            </div>
-            <div className='w-full lg:w-1/2 flex justify-center items-center'>
-              <div className='w-full sm:w-3/4 lg:w-full min-h-s flex justify-center  relative'>
-                <figure>
-                  <Image src="/hero-img.png" width={500} height={500} alt='hero' />
-                </figure>
-                <div className={` absolute top-0 left-0  translate-x-[20%] translate-y-[70%] lg:translate-x-[100%] lg:translate-y-[70%] `}>
-                  <img src="/icon-star.svg" className={`${styles.starImage} max-w-[112px] w-20 h-20`} alt='star' />
-                </div>
-                <div className={` absolute lg:top-[10%] lg:right-[20%] top-[8%] right-[5%]  translate-x-[20%] translate-y-[70%] lg:translate-x-[100%] lg:translate-y-[70%] `}>
-                  <div className={`${styles.heroIcons} bg-white lg:w-[90px] lg:h-[90px] w-[60px] h-[60px] rounded-full flex justify-center items-center`}>
-                    <img src="/icon-hero-theeth-1.svg" className='max-w-[56px] w-[40px] lg:w-full' alt="" />
-                  </div>
-                </div>
-                <div className={` absolute lg:top-[50%] lg:left-[10%] top-[50%] left-[5%]`}>
-                  <div className={`${styles.heroIcons} bg-white lg:w-[90px] lg:h-[90px] w-[60px] h-[60px] rounded-full flex justify-center items-center`}>
-                    <img src="/icon-hero-theeth-2.svg" className='max-w-[56px] w-[40px] lg:w-full' alt="" />
-                  </div>
-                </div>
-                <div className={` absolute lg:top-70%] lg:right-[25%] top-[70%] right-[5%]  translate-x-[20%] translate-y-[70%] lg:translate-x-[100%] lg:translate-y-[70%] `}>
-                  <div className={`${styles.heroIcons} bg-white lg:w-[90px] lg:h-[90px] w-[60px] h-[60px] rounded-full flex justify-center items-center`}>
-                    <img src="/icon-hero-theeth-3.svg" className='max-w-[56px] w-[40px] lg:w-full' alt="" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className='w-full bg-mainDark py-[25px]'>
-        <div className="container">
-          <div className='grid grid-cols-12 gap-5 lg:gap-0'>
-            <div className='col-span-12 lg:col-span-8 grid grid-cols-8 gap-5 lg:gap-0'>
-              <div className='w-full lg:col-span-4  col-span-12'>
-                <div className='flex justify-between items-center h-full pe-2 xl:pe-18'>
-                  <div className='flex justify-center items-center gap-4'>
-                    <Image src="/icon-cta-phone.svg" width={33} height={33} alt='star' />
-                    <div>
-                      <h3 className='text-[20px] capitalize font-poppins font-semibold text-white mb-[10px]'>need dental services ?</h3>
-                      <p className='font-poppins capitalize text-white'>Call on : (+01) 987 828 745</p>
-                    </div>
-                  </div>
-                  <Separator orientation='vertical' className='bg-[#FFFFFF1F] hidden lg:block' />
-                </div>
-              </div>
-              <div className='w-full lg:col-span-4  col-span-12 '>
-                <div className='flex justify-between items-center h-full pe-18'>
-                  <div className='flex justify-center items-center gap-4'>
-                    <Image src="/icon-cta-time.svg" width={33} height={33} alt='star' />
-                    <div>
-                      <h3 className='text-[20px] capitalize font-poppins font-semibold text-white mb-[10px]'>opening hours</h3>
-                      <p className='font-poppins capitalize text-white'>Mon to Sat 9:00AM to 9:00PM</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='lg:col-span-4 col-span-12 flex justify-center items-center'>
-              <AnimatedButton text='Make an Appointment' />
-            </div>
-          </div>
-        </div>
-      </section>
+      <CallToActionSection />
 
       {/* About Us Section */}
-      <section className='container my-20'>
-        <div className='grid grid-cols-12 '>
-          <div className='md:col-span-6 col-span-12'>
-            <div className={`${styles.aboutImage}`}>
-              <div className={`${styles.aboutImg1}`}>
-                <figure className={`${styles.imageAnime}  ${styles.reveal}`} style={{ transform: "translate(0px, 0px)", opacity: "1", visibility: "inherit" }}>
-                  <img src="/about-us-img-1.jpg" alt="" style={{ transform: "translate(0px, 0px)" }} />
-                </figure>
-              </div>
+      
+      
 
-              <div className={`${styles.aboutImg2}`}>
-                <figure className={`${styles.imageAnime}  ${styles.reveal}`} style={{ transform: "translate(0px, 0px)", opacity: "1", visibility: "inherit" }}>
-                  <img src="/about-us-img-2.jpg" alt="" style={{ transform: "translate(0px, 0px)" }} />
-                </figure>
-              </div>
-
-              {/* <!-- About Experience Circle Start --> */}
-              <div className={`${styles.aboutExperience}`}>
-                <figure>
-                  <img src="/about-experience-circle.png" alt="" />
-                </figure>
-              </div>
-              {/* <!-- About Experience Circle End --> */}
-            </div>
-          </div>
-          <div className='md:col-span-6 col-span-12 '>
-            <div className={`${styles.sectionTitle} w-full`} >
-              <div className='flex justify-start items-center gap-2 mb-5'>
-                <Image src="/icon-sub-heading.svg" width={15} height={15} alt='star Icon' />
-                <h3 className='capitalize font-poppins text-mainLight font-medium '>ABOUT US </h3>
-              </div>
-              <h4 className='capitalize font-poppins text-mainDark text-[30px] lg:text-[44px] font-bold leading-[35px] lg:leading-[55px] mb-10'><span className='text-mainLight'> Your Journey</span> to a Healthier Smile Begins Here</h4>
-              <p className='text-[#527282] text-[16px] font-poppins lg:pe-8 mb-6'>The goal of our clinic is to provide friendly, caring dentistry and the highest level of general, cosmetic, and specialist dental treatments. With dental practices throughout the world.</p>
-              <div className="grid md:grid-cols-2 gap-4 pt-4 mb-10">
-                <div className="flex items-center gap-2 ">
-                  <Image src="/success-icon-about.svg" width={22} height={22} alt='star Icon' />
-                  <span className="font-semibold text-mainDark text-[16px] font-poppins">Experienced Team</span>
-                </div>
-                <div className="flex items-center gap-2 ">
-                  <Image src="/success-icon-about.svg" width={22} height={22} alt='star Icon' />
-                  <span className="font-semibold text-mainDark text-[16px] font-poppins">Comprehensive Services</span>
-                </div>
-                <div className="flex items-center gap-2 ">
-                  <Image src="/success-icon-about.svg" width={22} height={22} alt='star Icon' />
-                  <span className="font-semibold text-mainDark text-[16px] font-poppins">State-Of-The-Art Technology</span>
-                </div>
-                <div className="flex items-center gap-2 ">
-                  <Image src="/success-icon-about.svg" width={22} height={22} alt='star Icon' />
-                  <span className="font-semibold text-mainDark text-[16px] font-poppins">Emergency Dental Services</span>
-                </div>
-              </div>
-
-              <div className='w-fit'>
-                <AnimatedButton text='Read More About Us' />
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-      </section>
+      <AboutSection />
 
       {/* Service Section */}
       <section className={`bg-[#eff8ff]`}>

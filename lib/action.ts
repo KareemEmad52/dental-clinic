@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { signIn } from "./auth";
+import { signIn, signOut } from "./auth";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import bcrypt from "bcryptjs";
 import prisma from "./prisma";
@@ -146,4 +146,9 @@ export async function SignupUser(formData: FormData) {
     console.error("Unexpected error during signup:", error);
     return { error: "An unexpected error occurred during signup" };
   }
+}
+
+
+export async function handleLogout() {
+  await signOut()
 }

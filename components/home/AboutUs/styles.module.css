@@ -1,0 +1,134 @@
+
+.aboutImage {
+  background: url("../../../public/about-bg-image.svg") no-repeat;
+  background-position: center center;
+  background-size: auto;
+  position: relative;
+  margin-right: 50px;
+  padding-bottom: 200px;
+}
+
+.aboutImg1 {
+  width: 410px;
+}
+
+.aboutImg2 figure,
+.aboutImg1 figure {
+  display: block;
+}
+
+.aboutImg1 img {
+  aspect-ratio: 1 /0.96;
+  object-fit: cover;
+  border-radius: 40px;
+}
+
+.aboutImg2 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.aboutImg2 img {
+  aspect-ratio: 1 /0.72;
+  object-fit: cover;
+  border: 7px solid white;
+  border-radius: 40px;
+}
+
+.aboutExperience {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(-50%, 50%);
+}
+
+.aboutExperience img {
+  animation: rotate 30s infinite linear;
+}
+
+.about-us-body {
+  margin-bottom: 40px;
+}
+
+.aboutUsBody ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.aboutUsBody ul li {
+  position: relative;
+  width: calc(50% - 10px);
+  font-weight: 600;
+  color: var(--primary-color);
+  text-transform: capitalize;
+  padding-left: 30px;
+}
+
+.aboutUsBody ul li:before {
+  content: "\f058";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--accent-color);
+  display: inline-block;
+  line-height: normal;
+  position: absolute;
+  top: 3px;
+  left: 0;
+}
+
+.imageAnime {
+  position: relative;
+  overflow: hidden;
+}
+
+.imageAnime:after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 0%;
+  left: 50%;
+  top: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%) rotate(-45deg);
+  z-index: 1;
+}
+
+.imageAnime:hover:after {
+  height: 250%;
+  transition: all 600ms linear;
+  background-color: transparent;
+}
+
+.reveal {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.reveal img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -webkit-transform-origin: left;
+  transform-origin: left;
+}
+
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
