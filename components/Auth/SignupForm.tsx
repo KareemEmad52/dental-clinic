@@ -12,7 +12,7 @@ import z from "zod"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CustomButton } from "../Cutsombutton"
 import { useState } from "react"
-import {  SignupUser } from "@/lib/action"
+import {  SignupUser } from "@/utils/actions/Auth-actions"
 
 // Validation schema
 const validatonSchema = z.object({
@@ -149,7 +149,8 @@ export default function SignupForm() {
 
 
 
-              <motion.div
+              <div className="space-y-2">
+                <motion.div
                 className="text-center text-sm"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -160,6 +161,19 @@ export default function SignupForm() {
                   Login
                 </Link>
               </motion.div>
+
+              <motion.div
+                className="text-center text-sm"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8, duration: 0.4 }}
+              >
+                Signup as Doctor?{" "}
+                <Link href="/signup-doctor" className="text-cyan-600 hover:underline">
+                  here
+                </Link>
+              </motion.div></div>
+
             </div>
           </CardContent>
 

@@ -1,0 +1,37 @@
+.services {
+  position: relative;
+  background-image: url(../../../public/our-service-bg.svg),
+    linear-gradient(180deg, #eff8ff 65%, white 35%);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: auto;
+}
+
+.servicesCard {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.servicesCard::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  background-color: #0e384c;
+  border-radius: 0px;
+  transition: all 0.4s ease-in-out;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+.servicesCard:hover::before {
+  top: 0;
+}
+
+.servicesCard:hover .serviceCardImage {
+  filter: brightness(0) invert(1);
+}

@@ -1,12 +1,22 @@
 "use server";
 
 import { z } from "zod";
-import { signIn, signOut } from "./auth";
-import { isRedirectError } from "next/dist/client/components/redirect-error";
 import bcrypt from "bcryptjs";
-import prisma from "./prisma";
-import { Prisma } from "@prisma/client";
-import { LoginSchema } from "./validations";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
+
+import prisma from "../../lib/prisma";
+import { Prisma, Role } from "@prisma/client";
+import { auth, signIn, signOut } from "../../lib/auth";
+import {
+  LoginSchema,
+  doctorProfileUpdateSchema,
+  doctorSignupSchema,
+} from "../validations";
+import { updateDoctorType } from "@/components/profile/UpdateDoctorForm";
+import axios, { AxiosError } from "axios";
+import { globalError } from "@/types/types";
+import { getCsrfToken } from "next-auth/react";
+import { exclude } from "@/utils/exclude";
 
 export async function SigninWithCredentials(formData: FormData) {
   const parsedData = LoginSchema.safeParse({
@@ -28,24 +38,20 @@ export async function SigninWithCredentials(formData: FormData) {
     const result = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirectTo: "/",
     });
 
-    if (result?.error) {
-      console.error("Auth.js error:", result.error);
-      return { error: result.error || "Invalid password" };
-    }
 
-    return { success: true , data: result };
+    return { success: true, data: result };
   } catch (error: any) {
     if (isRedirectError(error)) {
       throw error;
     }
-    
-    // Handle Auth.js CallbackRouteError
-    if (error.type === "CallbackRouteError" && error.cause) {
+
+    if (error.type === "CallbackRouteError" && error.cause?.err) {
       console.error("Auth.js error:", error.cause.err);
-      return { error: error.cause.err.message || "Invalid password" };
+      const errorMessage = error.cause.err.message || "Invalid email or password";
+      return { error: errorMessage };
     }
 
     // Handle other unexpected errors
@@ -53,7 +59,6 @@ export async function SigninWithCredentials(formData: FormData) {
     return { error: "An unexpected error occurred during sign-in" };
   }
 }
-
 
 export async function signInWithGitHub() {
   try {
@@ -103,8 +108,6 @@ export async function SignupUser(formData: FormData) {
 
     if (existingEmail) return { error: "Email already exists" };
 
-    console.log(process.env.HASH_SECRET_ROUND);
-
     const hashPassword = await bcrypt.hash(
       password,
       parseInt(process.env.HASH_SECRET_ROUND as string)
@@ -149,6 +152,8 @@ export async function SignupUser(formData: FormData) {
 }
 
 
+
 export async function handleLogout() {
-  await signOut()
+  await signOut();
 }
+

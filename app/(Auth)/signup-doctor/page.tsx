@@ -1,4 +1,4 @@
-import SignupForm from "@/components/Auth/SignupForm"
+import DoctorSignupForm from "@/components/Auth/SignupAsDoctor"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -6,8 +6,8 @@ export const metadata: Metadata = {
   description: "Signup to Dentaire",
 }
  
-export default function Signup() {
+export default function Page() {
   return (
-      <SignupForm />
+      <DoctorSignupForm />
   )
 } 

@@ -9,6 +9,8 @@ import { auth } from '@/lib/auth'
 import HeroSection from './HeroSection/HeroSection'
 import CallToActionSection from './callToActionSection/CallToAction'
 import AboutSection from './AboutUs/AboutUs'
+import ServicesSection from './OurService/OurService'
+import DatePicker from '../ui/date-picker'
 
 
 export default async function HomePage() {
@@ -17,6 +19,7 @@ export default async function HomePage() {
   return (
     <>
       
+
       <HeroSection />
 
       <CallToActionSection />
@@ -28,7 +31,7 @@ export default async function HomePage() {
       <AboutSection />
 
       {/* Service Section */}
-      <section className={`bg-[#eff8ff]`}>
+      {/* <section className={`bg-[#eff8ff]`}>
         <div className='container py-18'>
           <div className='w-full flex justify-center items-center gap-2 mb-5'>
             <Image src="/icon-sub-heading.svg" width={15} height={15} alt='star Icon' />
@@ -84,7 +87,9 @@ export default async function HomePage() {
             <AnimatedButton text='View All Services' />
           </div>
         </div>
-      </section>
+      </section> */}
+
+      <ServicesSection />
 
       {/* Clinic Visit Section */}
       <section className='w-[98%] mx-auto my-12'>
@@ -435,10 +440,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-
-      <Footer />
-
     </>
   )
 }

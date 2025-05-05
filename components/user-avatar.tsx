@@ -10,10 +10,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { auth } from "@/lib/auth" 
-import { handleLogout } from "@/lib/action";
+import { handleLogout } from "@/utils/actions/Auth-actions";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export async function UserAvatar() {
-  const session = await auth();
+  const session = await auth()
 
   return (
     <DropdownMenu modal={false}>
@@ -21,7 +23,7 @@ export async function UserAvatar() {
         <Avatar className="h-9 w-9 cursor-pointer">
           <AvatarImage src={session?.user.image || "/placeholder.svg"} alt={session?.user.name || "User Name"} />
           <AvatarFallback>
-            {session?.user.name?.split(" ").map((n) => n[0]).join("")}
+            {session?.user.name?.split(" ").map((n) => n[0]).join("").slice(0, 2)}
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -34,10 +36,12 @@ export async function UserAvatar() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
+          <Link href="/profile">
           <DropdownMenuItem>
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
           </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem>
             <Settings className="mr-2 h-4 w-4" />
             <span>Settings</span>

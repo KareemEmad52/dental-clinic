@@ -6,11 +6,7 @@ import { UserAvatar } from "./user-avatar";
 import SideBarToggleIcon from "./sidebar-toggle";
 
 export default async function Navbar() {
-
   const session = await auth()
-  console.log(session?.user.name);
-
-
   return (
     <nav className="border-b border-spacing-0.5 border-[#0E384C1A] py-[30px]  ">
       <div className="container flex  items-center justify-between lg:justify-center gap-5">

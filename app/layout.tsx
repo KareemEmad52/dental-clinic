@@ -6,6 +6,9 @@ import { auth } from "@/lib/auth";
 import { Toaster } from 'react-hot-toast';
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/ui/app-sidebar";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/home/footer/footer";
+import QueryProvider from "@/lib/QueryProvider";
 
 
 const geistSans = Geist({
@@ -40,16 +43,20 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
       >
+        <QueryProvider>
         <SessionProvider session={session}>
           <SidebarProvider>
             <AppSidebar />
             {/* <SidebarTrigger /> */}
             <Toaster />
             <main className="w-full ">
+              <Navbar />
             {children}
+            <Footer />
             </main>
           </SidebarProvider>
         </SessionProvider>
+        </QueryProvider>
       </body>
     </html>
   );

@@ -175,7 +175,7 @@ const AboutSection = () => {
               </motion.div>
               <motion.div variants={contentVariants} className="flex items-center gap-2">
                 <Image src="/success-icon-about.svg" width={22} height={22} alt="star Icon" />
-                <span className="font-semibold text-mainDark text-[16px] font-poppins">State-Of-The-Art,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, Technology</span>
+                <span className="font-semibold text-mainDark text-[16px] font-poppins">State-Of-The-Art Technology</span>
               </motion.div>
               <motion.div variants={contentVariants} className="flex items-center gap-2">
                 <Image src="/success-icon-about.svg" width={22} height={22} alt="star Icon" />

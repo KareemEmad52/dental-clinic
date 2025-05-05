@@ -22,7 +22,7 @@ const HeroSection = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: 'easeOut' }}
+              transition={{ duration: 0.7, delay: 0.3,ease: 'easeOut' }}
               
               className='w-full flex justify-start mt-[10px]'>
               <p className='lg:max-w-[500px] text-md text-[#527282] '>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal</p>

@@ -4,7 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import GitHub from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { LoginSchema } from "./validations";
+import { LoginSchema } from "../utils/validations";
 import Google from "next-auth/providers/google";
 
 export const {
@@ -60,6 +60,10 @@ export const {
       if (user) {
         token.id = user.id;
         token.role = user.role;
+        token.phone = user.phone;
+        token.address = user.address;
+        token.gender = user.gender;
+        token.dateOfBirth = user.dateOfBirth;
       }
       return token;
     },
@@ -67,6 +71,10 @@ export const {
       if (token.id) {
         session.user.id = token.id;
         session.user.role = token.role;
+        session.user.phone = token.phone;
+        session.user.address = token.address;
+        session.user.gender = token.gender;
+        session.user.dateOfBirth = token.dateOfBirth;
       }
       return session;
     },

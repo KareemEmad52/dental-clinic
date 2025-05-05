@@ -13,9 +13,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { CustomButton } from "../Cutsombutton"
 import { FaGithub } from "react-icons/fa6";
 import { useEffect, useState } from "react"
-import { SigninWithCredentials, signInWithGitHub, signInWithGoogle } from "@/lib/action"
+import { SigninWithCredentials, signInWithGitHub, signInWithGoogle } from "@/utils/actions/Auth-actions"
 import { BiLoader } from "react-icons/bi"
-import { LoginSchema } from "@/lib/validations"
+import { LoginSchema } from "@/utils/validations"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import { Spinner } from "../Spinner"
@@ -88,10 +88,10 @@ export default function LoginForm() {
     const res = await SigninWithCredentials(formData)
     console.log(res)
     if (res.success) {
-      router.prefetch("/")
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      // router.prefetch("/")
+      // await new Promise((resolve) => setTimeout(resolve, 2000))
       toast.success("Login Successfully", { duration: 2000 })
-      router.push("/")
+      // router.push("/")
     } else {
       if (res.error === "User not found") {
         toast.error("Email not Exists", { duration: 2000 })
