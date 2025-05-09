@@ -10,7 +10,6 @@ import HeroSection from './HeroSection/HeroSection'
 import CallToActionSection from './callToActionSection/CallToAction'
 import AboutSection from './AboutUs/AboutUs'
 import ServicesSection from './OurService/OurService'
-import DatePicker from '../ui/date-picker'
 
 
 export default async function HomePage() {

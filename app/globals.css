@@ -189,3 +189,8 @@
   75% { opacity: 0.05; }
   100% { opacity: 0; }
 }
+
+html body[data-scroll-locked] {
+  overflow: visible !important;
+  margin-right: 0 !important;
+} 

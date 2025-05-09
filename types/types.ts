@@ -3,6 +3,12 @@ export interface GetDoctorInfoResponse {
   data: User;
 }
 
+
+export interface GetUserInfoResponse {
+  message: string;
+  data: User;
+}
+
 export interface User {
   id: string;
   name: string;
@@ -45,3 +51,4 @@ export type ActionResponse<T = any> = {
   error?: string;
   code?: number;
 };
+

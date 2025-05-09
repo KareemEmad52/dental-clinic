@@ -7,19 +7,18 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   const session = await auth();  
-  if (!session || !session.user || session.user.role !== Role.DOCTOR) {
+  if (!session || !session.user || session.user.role !== Role.PATIENT) {
     return NextResponse.json(
-      actionError("Unauthorized: Must be a doctor", null, 401),
+      actionError("Unauthorized: Must be a patient", null, 401),
       { status: 401 }
     );
   }
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    include: { doctorProfile: true },
   });
 
-  if (!user || !user.doctorProfile) {
+  if (!user ) {
     return NextResponse.json(
       actionError("Profile not found", null, 404),
       { status: 404 }

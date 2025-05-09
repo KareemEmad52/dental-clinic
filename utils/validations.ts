@@ -1,5 +1,7 @@
 import { Gender } from "@prisma/client";
 import { z } from "zod";
+import { parse } from "date-fns";
+
 
 export const LoginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -101,3 +103,72 @@ export const updatePasswordSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
+
+
+export const patientProfileUpdateSchema = z
+  .object({
+    name: z
+      .string()
+      .min(1, { message: "Name is required" })
+      .max(100, { message: "Name must be 100 characters or less" })
+      .optional(),
+    email: z
+      .string()
+      .email({ message: "Invalid email address" })
+      .max(255, { message: "Email must be 255 characters or less" })
+      .optional(),
+    phone: z
+      .string()
+      .min(10, { message: "Phone number is required" })
+      .max(11, { message: "Phone number must be 11 characters " })
+      .optional(),
+    address: z
+      .string()
+      .min(1, { message: "Address is required" })
+      .max(100, { message: "Address must be 100 characters or less" })
+      .optional(),
+    gender: z
+      .enum([Gender.MALE, Gender.FEMALE], { message: "Gender is required" })
+      .optional(),
+    dob: z.coerce
+      .date({
+        required_error: "Date is required",
+        invalid_type_error: "Invalid date",
+      })
+      .optional(),
+  })
+  .strict();
+
+
+
+export const availabilityQuerySchema = z.object({
+  date: z.string().refine((val) => {
+    const date = parse(val, "yyyy-MM-dd", new Date());
+    return !isNaN(date.getTime());
+  }, { message: "Invalid date format (use YYYY-MM-DD)" }),
+  serviceId: z.string().min(1, { message: "Service ID is required" }),
+});
+
+
+export const bookAppointmentSchema = z.object({
+  doctorId: z.string().min(1, "Please select a doctor"),
+  serviceId: z.string().min(1, "Please select a service"),
+  date: z.coerce
+  .date({
+    required_error: "Date is required",
+    invalid_type_error: "Invalid date",
+  }),
+  startTime: z.string().min(1, "Please select a time"),
+});
+
+
+export const MakeAppointmentSchema = z.object({
+  doctorId: z.string().min(1, "Please select a doctor"),
+  serviceId: z.string().min(1, "Please select a service"),
+  startTime: z.coerce
+  .date({
+    required_error: "Date is required",
+    invalid_type_error: "Invalid date",
+  }),
+});

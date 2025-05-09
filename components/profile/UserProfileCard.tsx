@@ -10,13 +10,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {  User, Calendar, FileText, Lock } from "lucide-react";
 import UpdateDoctorForm from './UpdateDoctorForm';
 import UpdatePasswordForm from './UpdatePassword';
+import { useSession } from 'next-auth/react';
+import { Role } from '@prisma/client';
+import UpdatePatientForm from './updatePatient';
 
 
 export const UserProfileCard = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState("personal");
-  
+  const session = useSession()
 
+  
   
   const tabs = [
     { id: "personal", label: "Personal Info", icon: User },
@@ -46,7 +50,12 @@ export const UserProfileCard = () => {
         </div>
         
         <TabsContent value="personal" className="m-0">
+          {session.data?.user.role === Role.DOCTOR ? 
+          
           <UpdateDoctorForm isEditing={isEditing} setIsEditing={setIsEditing} />
+          : 
+          <UpdatePatientForm isEditing={isEditing} setIsEditing={setIsEditing} />
+          }
         </TabsContent>
 
 

@@ -137,9 +137,11 @@ export async function updateDoctorPassword(
   try {
     // Authentication check
     const session = await auth();
-    if (!session?.user || session.user.role !== Role.DOCTOR) {
+    if (!session?.user) {
       return actionError("Unauthorized: Must be a doctor", null, 401);
     }
+
+
 
     // Validation
     const validation = updatePasswordSchema.safeParse(data);

@@ -1,20 +1,11 @@
-import { doctorProfileUpdateSchema } from "@/utils/validations";
+import { patientProfileUpdateSchema } from "@/utils/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { CardContent, CardFooter } from "../ui/card";
 import { Button } from "../ui/button";
-import {
-  Award,
-  CalendarIcon,
-  Check,
-  Edit,
-  GraduationCap,
-  Mail,
-  Phone,
-  User,
-} from "lucide-react";
+import { CalendarIcon, Check, Edit, Mail, Phone, User } from "lucide-react";
 import { Label } from "../ui/label";
 import { CustomInput } from "../InputField";
 import {
@@ -26,45 +17,40 @@ import {
 } from "../ui/select";
 import { FormControl, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
-import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
-import { getDoctorInfo } from "@/utils/api";
-import { GetDoctorInfoResponse, globalError } from "@/types/types";
+import { getUserInfo } from "@/utils/api";
+import { GetUserInfoResponse } from "@/types/types";
 import { Gender } from "@prisma/client";
-import { Textarea } from "../ui/textarea";
 import toast from "react-hot-toast";
-import { AxiosError } from "axios";
 import { Spinner } from "../Spinner";
 import { CustomButton } from "../Cutsombutton";
-import { updateDoctorInfo } from "@/utils/actions/Doctors-actions";
+import { updatePatientInfo } from "@/utils/actions/Patient-action";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { format } from "date-fns";
 import { Calendar } from "../ui/calendar";
 import { cn } from "@/lib/utils";
 import { EnhancedDatePicker } from "../enhancedDatePicker";
 
-export type updateDoctorType = z.infer<typeof doctorProfileUpdateSchema>;
+export type updatePatientType = z.infer<typeof patientProfileUpdateSchema>;
 
 type Props = {
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const UpdateDoctorForm: React.FC<Props> = ({ isEditing, setIsEditing }) => {
-  const [originalData, setOriginalData] = useState<updateDoctorType | null>(
+const UpdatePatientForm: React.FC<Props> = ({ isEditing, setIsEditing }) => {
+  const [originalData, setOriginalData] = useState<updatePatientType | null>(
     null
   );
   const [isUpdateLoading, setIsUpdateLoading] = useState<boolean>(false);
 
-  const { data, error, isLoading } = useQuery<GetDoctorInfoResponse>({
-    queryKey: ["doctorInfo"],
-    queryFn: getDoctorInfo,
+  const { data, error, isLoading } = useQuery<GetUserInfoResponse>({
+    queryKey: ["userInfo"],
+    queryFn: getUserInfo,
   });
 
-  console.log(error);
-
-  const methods = useForm<updateDoctorType>({
-    resolver: zodResolver(doctorProfileUpdateSchema),
+  const methods = useForm<updatePatientType>({
+    resolver: zodResolver(patientProfileUpdateSchema),
   });
 
   const {
@@ -75,7 +61,7 @@ const UpdateDoctorForm: React.FC<Props> = ({ isEditing, setIsEditing }) => {
     reset,
   } = methods;
 
-  const onSubmit = async (data: updateDoctorType) => {
+  const onSubmit = async (data: updatePatientType) => {
     setIsUpdateLoading(true);
     // Check if there are any changes
     if (!originalData || Object.keys(dirtyFields).length === 0) {
@@ -87,13 +73,13 @@ const UpdateDoctorForm: React.FC<Props> = ({ isEditing, setIsEditing }) => {
 
     // Extract only changed fields
     const changedValues = Object.keys(dirtyFields).reduce((acc, key) => {
-      const fieldKey = key as keyof updateDoctorType;
+      const fieldKey = key as keyof updatePatientType;
       acc[fieldKey] = data[fieldKey] as any;
       return acc;
-    }, {} as Partial<updateDoctorType>);
+    }, {} as Partial<updatePatientType>);
 
     // Call the Server Action
-    const res = await updateDoctorInfo(changedValues);
+    const res = await updatePatientInfo(changedValues);
 
     // Handle response
     if (res.success) {
@@ -113,15 +99,11 @@ const UpdateDoctorForm: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         email: data.data?.email || "",
         name: data.data?.name || "",
         phone: data.data?.phone || "",
-        specialty: data.data?.doctorProfile?.specialty || "",
         address: data.data?.address || "123 Main Street",
-        bio: data.data?.doctorProfile?.bio || "",
         dob: data.data?.dateOfBirth
           ? new Date(data.data.dateOfBirth)
           : undefined,
         gender: (data.data?.gender as Gender) || Gender.MALE,
-        photoUrl: data.data?.doctorProfile?.photoUrl || "",
-        qualifications: data.data?.doctorProfile?.qualifications || "",
       };
 
       // Set the original data for comparison later
@@ -204,6 +186,11 @@ const UpdateDoctorForm: React.FC<Props> = ({ isEditing, setIsEditing }) => {
                 <Controller
                   control={control}
                   name="dob"
+                  defaultValue={
+                    data.data?.dateOfBirth
+                      ? new Date(data.data.dateOfBirth)
+                      : undefined
+                  }
                   render={({ field }) => (
                     <EnhancedDatePicker
                       date={field.value}
@@ -302,48 +289,6 @@ const UpdateDoctorForm: React.FC<Props> = ({ isEditing, setIsEditing }) => {
                 </div>
               </div>
             </div>
-
-            <div className="mt-6">
-              <h3 className="text-lg font-medium mb-4">Medical Information</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="specialty">specialty</Label>
-                  <CustomInput
-                    id="specialty"
-                    readOnly={!isEditing}
-                    className={!isEditing ? "bg-muted" : ""}
-                    {...register("specialty")}
-                    icon={<Award className="h-4 w-4" />}
-                    error={errors.specialty}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="qualifications">qualifications</Label>
-                  <CustomInput
-                    id="qualifications"
-                    readOnly={!isEditing}
-                    className={!isEditing ? "bg-muted" : ""}
-                    {...register("qualifications")}
-                    icon={<GraduationCap className="h-4 w-4" />}
-                    error={errors.qualifications}
-                  />
-                </div>
-              </div>
-              <div className="space-y-4 mt-3">
-                <div className="space-y-2">
-                  <Label htmlFor="bio">bio</Label>
-                  <Textarea
-                    id="bio"
-                    readOnly={!isEditing}
-                    {...register("bio")}
-                    className={
-                      !isEditing ? "bg-muted resize-none" : "resize-none"
-                    }
-                    rows={2}
-                  />
-                </div>
-              </div>
-            </div>
           </CardContent>
 
           {isEditing && (
@@ -371,4 +316,4 @@ const UpdateDoctorForm: React.FC<Props> = ({ isEditing, setIsEditing }) => {
   );
 };
 
-export default UpdateDoctorForm;
+export default UpdatePatientForm;
