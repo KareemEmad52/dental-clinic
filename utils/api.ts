@@ -47,3 +47,10 @@ export const getAvailability = async ({
   );
   return res.data;
 };
+
+export const doctorAppointments = async () => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/doctor/appointments?stats=true`
+  );
+  return res.data;
+};

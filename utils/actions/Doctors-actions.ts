@@ -9,11 +9,12 @@ import {
 } from "@/utils/validations";
 import { exclude } from "../exclude";
 import { updateDoctorType } from "@/components/profile/UpdateDoctorForm";
-import { Role } from "@prisma/client";
+import { AppointmentStatus, Role } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { ActionResponse } from "@/types/types";
 import { actionError, actionSuccess } from "../response";
 import { z } from "zod";
+import { updateStatusSchema } from "@/components/doctorAppointments/updateStatus";
 
 export async function SignupDoctor(formData: FormData) {
   const rawData = Object.fromEntries(formData.entries());
@@ -21,8 +22,8 @@ export async function SignupDoctor(formData: FormData) {
   const parsed = doctorSignupSchema.safeParse(rawData);
 
   if (!parsed.success) {
-      const error = parsed.error.errors[0]?.message;
-      return actionError(error || "Invalid data", null, 400);
+    const error = parsed.error.errors[0]?.message;
+    return actionError(error || "Invalid data", null, 400);
   }
 
   try {
@@ -39,12 +40,15 @@ export async function SignupDoctor(formData: FormData) {
 
     const data = await res.json();
 
-
     if (!res.ok) {
-      return actionError(data.error.message || "Something went wrong", null, 500);
+      return actionError(
+        data.error.message || "Something went wrong",
+        null,
+        500
+      );
     }
 
-    return actionSuccess("Account created successfully!",data);
+    return actionSuccess("Account created successfully!", data);
   } catch (error) {
     console.error("Signup error:", error);
     return actionError("Something went wrong", null, 500);
@@ -92,7 +96,7 @@ export async function updateDoctorInfo(data: Partial<updateDoctorType>) {
       where: { userId: session.user.id },
     });
     if (!existingProfile) {
-        return actionError("Doctor profile not found", null, 404);
+      return actionError("Doctor profile not found", null, 404);
     }
 
     // Update the user and doctor profile in a transaction
@@ -141,8 +145,6 @@ export async function updateDoctorPassword(
       return actionError("Unauthorized: Must be a doctor", null, 401);
     }
 
-
-
     // Validation
     const validation = updatePasswordSchema.safeParse(data);
     if (!validation.success) {
@@ -160,8 +162,44 @@ export async function updateDoctorPassword(
     });
 
     return actionSuccess("Password updated successfully");
-    
   } catch (error) {
     return actionError("Failed to update password", error, 500);
+  }
+}
+
+export async function updateAppointmentStatus(
+  newStatus: AppointmentStatus,
+  appointmentId: string
+) {
+  try {
+    const session = await auth();
+    if (!session?.user || session.user.role !== Role.DOCTOR) {
+      return actionError("Unauthorized: Must be a doctor", null, 401);
+    }
+
+
+
+    const existDoctor = await prisma.user.findUnique({
+      where: { id: session.user.id },
+    });
+    if (!existDoctor) {
+      return actionError("Doctor not found", null, 404);
+    }
+
+    const existAppointment = await prisma.appointment.findUnique({
+      where: { id: appointmentId },
+    });
+    if (!existAppointment) {
+      return actionError("Appointment not found", null, 404);
+    }
+
+    const updatedAppointment = await prisma.appointment.update({
+      where: { id: appointmentId },
+      data: { status: newStatus },
+    });
+
+    return actionSuccess("Status updated successfully", updatedAppointment);
+  } catch (error) {
+    return actionError("Failed to update status", error, 500);
   }
 }

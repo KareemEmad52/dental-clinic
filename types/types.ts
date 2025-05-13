@@ -1,8 +1,9 @@
+import { AppointmentStatus, Service } from "@prisma/client";
+
 export interface GetDoctorInfoResponse {
   message: string;
   data: User;
 }
-
 
 export interface GetUserInfoResponse {
   message: string;
@@ -43,7 +44,6 @@ export type globalError = {
   }[];
 };
 
-
 export type ActionResponse<T = any> = {
   success: boolean;
   message: string;
@@ -52,3 +52,26 @@ export type ActionResponse<T = any> = {
   code?: number;
 };
 
+export type DoctorAppointmentsResponseData = {
+  appointments: {
+    id: string;
+    patientId: string;
+    doctorId: string;
+    serviceId: string;
+    startTime: string;
+    endTime: string;
+    status: AppointmentStatus;
+    notes: any;
+    createdAt: string;
+    updatedAt: string;
+    patient: Partial<User>;
+    service: Partial<Service>;
+  };
+  statistics: {
+    total: number;
+    completed: number;
+    confirmed: number;
+    cancelled: number;
+    scheduled: number;
+  };
+};

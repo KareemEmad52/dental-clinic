@@ -19,6 +19,7 @@ import { LoginSchema } from "@/utils/validations"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import { Spinner } from "../Spinner"
+import { useSession } from "next-auth/react"
 
 
 
@@ -79,6 +80,7 @@ export default function LoginForm() {
   const [googleLoading, setGoogleLoading] = useState<boolean>(false)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const session = useSession()
 
   const onSubmit = async (data: z.infer<typeof LoginSchema>) => {
     const formData = new FormData()
@@ -92,6 +94,7 @@ export default function LoginForm() {
       // await new Promise((resolve) => setTimeout(resolve, 2000))
       toast.success("Login Successfully", { duration: 2000 })
       // router.push("/")
+      // session.update()
     } else {
       if (res.error === "User not found") {
         toast.error("Email not Exists", { duration: 2000 })

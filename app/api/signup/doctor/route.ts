@@ -52,6 +52,7 @@ export async function POST(req: Request) {
         name,
         password: hashedPassword,
         role: "DOCTOR",
+        image: "https://res.cloudinary.com/dnsvisuww/image/upload/v1746280828/jugtbfc50my68ktbwc73.jpg",
         doctorProfile: {
           create: {
             specialty,

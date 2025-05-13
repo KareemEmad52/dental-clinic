@@ -1,5 +1,5 @@
-import { LogOut, Settings, User } from "lucide-react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Calendar, LogOut, Settings, User } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,40 +8,63 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { auth } from "@/lib/auth" 
+} from "@/components/ui/dropdown-menu";
+import { auth } from "@/lib/auth";
 import { handleLogout } from "@/utils/actions/Auth-actions";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 
 export async function UserAvatar() {
-  const session = await auth()
+  const session = await auth();
+
+
+  const isDoctor = session?.user.role === "DOCTOR";
+
+
 
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Avatar className="h-9 w-9 cursor-pointer">
-          <AvatarImage src={session?.user.image || "/placeholder.svg"} alt={session?.user.name || "User Name"} />
+          <AvatarImage
+            src={session?.user.image || "/placeholder.svg"}
+            alt={session?.user.name || "User Name"}
+          />
           <AvatarFallback>
-            {session?.user.name?.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+            {session?.user.name
+              ?.split(" ")
+              .map((n) => n[0])
+              .join("")
+              .slice(0, 2)}
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{session?.user.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">{session?.user.email}</p>
+            <p className="text-sm font-medium leading-none">
+              {session?.user.name}
+            </p>
+            <p className="text-xs leading-none text-muted-foreground">
+              {session?.user.email}
+            </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <Link href="/profile">
-          <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-          </DropdownMenuItem>
+            <DropdownMenuItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
           </Link>
+          {isDoctor && (
+            <Link href="/doctor/appointments">
+              <DropdownMenuItem>
+                <Calendar className="mr-2 h-4 w-4" />
+                <span>Appointments</span>
+              </DropdownMenuItem>
+            </Link>
+          )}
           <DropdownMenuItem>
             <Settings className="mr-2 h-4 w-4" />
             <span>Settings</span>
@@ -49,9 +72,7 @@ export async function UserAvatar() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
 
-        <form
-          action={handleLogout}
-        >
+        <form action={handleLogout}>
           <button type="submit" className="w-full text-left">
             <DropdownMenuItem asChild>
               <div className="flex items-center">
@@ -61,8 +82,7 @@ export async function UserAvatar() {
             </DropdownMenuItem>
           </button>
         </form>
-
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

@@ -220,7 +220,7 @@ const UpdatePatientForm: React.FC<Props> = ({ isEditing, setIsEditing }) => {
                           value={field.value}
                           disabled={!isEditing}
                         >
-                          <SelectTrigger className="w-full focus:ring-blue-600 focus-visible:ring-blue-600">
+                          <SelectTrigger className="w-full focus:ring-mainLight focus-visible:ring-mainLight focus-visible:ring-[1.5px]">
                             <SelectValue
                               placeholder={"Select your gender"}
                               className="placeholder:text-gray-400"
