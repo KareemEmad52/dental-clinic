@@ -9,7 +9,7 @@ import {
 } from "@/utils/validations";
 import { exclude } from "../exclude";
 import { updateDoctorType } from "@/components/profile/UpdateDoctorForm";
-import { AppointmentStatus, Role } from "@prisma/client";
+import { AppointmentStatus, Providers, Role } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { ActionResponse } from "@/types/types";
 import { actionError, actionSuccess } from "../response";
@@ -145,6 +145,11 @@ export async function updateDoctorPassword(
       return actionError("Unauthorized: Must be a doctor", null, 401);
     }
 
+    if(!session.user.provider || session.user.provider !== Providers.CREDENTIALS) {
+      return actionError("Must be login with credentials", null, 401);
+    }
+
+    
     // Validation
     const validation = updatePasswordSchema.safeParse(data);
     if (!validation.success) {

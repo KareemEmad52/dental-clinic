@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 
 import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
+import Link from 'next/link'
 
 
 const HeroSection = () => {
@@ -22,8 +23,8 @@ const HeroSection = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3,ease: 'easeOut' }}
-              
+              transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
+
               className='w-full flex justify-start mt-[10px]'>
               <p className='lg:max-w-[500px] text-md text-[#527282] '>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal</p>
             </motion.div>
@@ -31,10 +32,12 @@ const HeroSection = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7,delay: 0.5 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
             >
               <div className='mt-[20px]'>
-                <AnimatedButton text='Make an Appointment' />
+                <Link href='/appointments'>
+                  <AnimatedButton text='Make an Appointment' />
+                </Link>
               </div>
             </motion.div>
 

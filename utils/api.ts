@@ -1,6 +1,7 @@
 import {
   ActionResponse,
   GetDoctorInfoResponse,
+  GetPatientAppointmentsResponse,
   GetUserInfoResponse,
   User,
 } from "@/types/types";
@@ -51,6 +52,13 @@ export const getAvailability = async ({
 export const doctorAppointments = async () => {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/doctor/appointments?stats=true`
+  );
+  return res.data;
+};
+
+export const patientAppointments = async (): Promise<ActionResponse<GetPatientAppointmentsResponse[]>> => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/patient/appointments`
   );
   return res.data;
 };

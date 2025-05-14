@@ -75,3 +75,34 @@ export type DoctorAppointmentsResponseData = {
     scheduled: number;
   };
 };
+
+
+export type GetPatientAppointmentsResponse = {
+  id: string
+  patientId: string
+  doctorId: string
+  serviceId: string
+  startTime: string
+  endTime: string
+  status: string
+  notes: any
+  createdAt: string
+  updatedAt: string
+  service: {
+    name: string
+    description: string
+    price: number
+    duration: number
+  }
+  doctor: {
+    name: string
+    email: string
+    image: string
+    doctorProfile: {
+      specialty: string
+      bio: string
+      qualifications: string
+      photoUrl: string
+    }
+  }
+}

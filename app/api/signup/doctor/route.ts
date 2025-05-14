@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { doctorSignupSchema } from "@/utils/validations";
+import { Providers } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
@@ -52,6 +53,7 @@ export async function POST(req: Request) {
         name,
         password: hashedPassword,
         role: "DOCTOR",
+        provider: Providers.CREDENTIALS,
         image: "https://res.cloudinary.com/dnsvisuww/image/upload/v1746280828/jugtbfc50my68ktbwc73.jpg",
         doctorProfile: {
           create: {

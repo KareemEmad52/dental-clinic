@@ -26,6 +26,8 @@ export default function UpdatePasswordForm() {
 
   const [loading, setLoading] = useState(false)
 
+  
+
 
   const onSubmit = async (data: z.infer<typeof updatePasswordSchema>) => {
     try {

@@ -1,4 +1,4 @@
-import { Gender } from "@prisma/client";
+import { Gender, Providers } from "@prisma/client";
 import { DefaultSession, DefaultJWT } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
@@ -13,6 +13,7 @@ declare module "next-auth" {
       gender?: Gender | null;
       address?: string | null;
       dateOfBirth?: Date | null;
+      provider?: Providers | null;
     } & DefaultSession["user"];
   }
 
@@ -23,6 +24,7 @@ declare module "next-auth" {
     gender?: Gender | null;
     address?: string | null;
     dateOfBirth?: Date | null;
+    provider?: Providers | null;
   }
 }
 
@@ -34,5 +36,6 @@ declare module "next-auth/jwt" {
     gender?: Gender | null;
     address?: string | null;
     dateOfBirth?: Date | null;
+    provider?: Providers | null;
   }
 }

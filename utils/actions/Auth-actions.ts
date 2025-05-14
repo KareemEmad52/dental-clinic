@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 import prisma from "../../lib/prisma";
-import { Prisma, Role } from "@prisma/client";
+import { Prisma, Providers, Role } from "@prisma/client";
 import { auth, signIn, signOut } from "../../lib/auth";
 import {
   LoginSchema,
@@ -118,6 +118,7 @@ export async function SignupUser(formData: FormData) {
         email,
         name: username,
         password: hashPassword,
+        provider: Providers.CREDENTIALS
       },
     });
 

@@ -30,7 +30,7 @@ export default async function Navbar() {
                   href="/appointments"
                   className="text-mainDark text-md font-medium font-poppins hover:text-mainLight transition-all duration-500 "
                 >
-                 Appointments
+                 Book Appointments
                 </Link>
               </li>
               <li>

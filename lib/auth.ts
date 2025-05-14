@@ -64,6 +64,7 @@ export const {
         token.address = user.address;
         token.gender = user.gender;
         token.dateOfBirth = user.dateOfBirth;
+        token.provider = user.provider;
       }
       return token;
     },
@@ -75,6 +76,7 @@ export const {
         session.user.address = token.address;
         session.user.gender = token.gender;
         session.user.dateOfBirth = token.dateOfBirth;
+        session.user.provider = token.provider;
       }
       return session;
     },

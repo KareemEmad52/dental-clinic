@@ -13,6 +13,7 @@ import UpdatePasswordForm from './UpdatePassword';
 import { useSession } from 'next-auth/react';
 import { Role } from '@prisma/client';
 import UpdatePatientForm from './updatePatient';
+import { AppointmentTable } from './appoitment/appointmentTable';
 
 
 export const UserProfileCard = () => {
@@ -67,10 +68,7 @@ export const UserProfileCard = () => {
           <CardContent className="p-6">
             <h2 className="text-xl font-medium mb-6">Your Appointments</h2>
             <div className="bg-muted/50 rounded-lg p-8 text-center">
-              <p className="text-muted-foreground">You have no upcoming appointments.</p>
-              <Button className="mt-4 bg-dental-600 hover:bg-dental-700">
-                Schedule an Appointment
-              </Button>
+              <AppointmentTable />
             </div>
           </CardContent>
         </TabsContent>
