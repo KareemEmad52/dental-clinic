@@ -32,11 +32,13 @@ import { CustomButton } from "../Cutsombutton"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  initialSorting?: {id: string, desc: boolean}[]
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  initialSorting
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
@@ -55,10 +57,11 @@ export function DataTable<TData, TValue>({
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     state: {
-      sorting,
+
       columnFilters,
       columnVisibility,
       rowSelection,
+      sorting: initialSorting ?? [],
     },
   })
 

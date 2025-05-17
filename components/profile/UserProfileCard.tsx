@@ -14,6 +14,7 @@ import { useSession } from 'next-auth/react';
 import { Role } from '@prisma/client';
 import UpdatePatientForm from './updatePatient';
 import { AppointmentTable } from './appoitment/appointmentTable';
+import InvoicesTable from './invoice/InvoicesTable';
 
 
 export const UserProfileCard = () => {
@@ -27,7 +28,7 @@ export const UserProfileCard = () => {
     { id: "personal", label: "Personal Info", icon: User },
     { id: "pasword", label: "Password", icon: Lock },
     { id: "appointments", label: "Appointments", icon: Calendar },
-    { id: "medical", label: "Medical Records", icon: FileText },
+    { id: "invoice", label: "Invoices", icon: FileText },
   ];
 
   return (
@@ -73,12 +74,11 @@ export const UserProfileCard = () => {
           </CardContent>
         </TabsContent>
         
-        <TabsContent value="medical" className="m-0">
+        <TabsContent value="invoice" className="m-0">
           <CardContent className="p-6">
-            <h2 className="text-xl font-medium mb-6">Medical Records</h2>
+            <h2 className="text-xl font-medium mb-6">Your Invoices</h2>
             <div className="bg-muted/50 rounded-lg p-8 text-center">
-              <p className="text-muted-foreground">Your dental records are private and can only be viewed here.</p>
-              <p className="text-muted-foreground mt-2">No records available at this time.</p>
+             <InvoicesTable />
             </div>
           </CardContent>
         </TabsContent>

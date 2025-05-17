@@ -136,6 +136,15 @@ export async function MakeAppointment(data: {doctorId: string, serviceId: string
           });
           
 
+          const invoice = await prisma.invoice.create({
+            data: {
+              appointmentId: newAppointment.id,
+              userId: session.user.id,
+              amount: service.price,
+              issuedAt: new Date(),
+            },
+          });
+
           return actionSuccess("Appointment made successfully", newAppointment);
 
 

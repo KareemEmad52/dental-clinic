@@ -1,5 +1,6 @@
 import HomePage from "@/components/home/home";
 import Navbar from "@/components/navbar";
+import { auth } from "@/lib/auth";
 import { Metadata } from "next";
 
 
@@ -8,7 +9,10 @@ export const metadata: Metadata = {
     description: "Home",
 }
 
-export default function Home() {
+export default async function Home() {
+  const sessoin = await auth();
+  console.log(sessoin);
+  
   return (
     <>
     <div className="w-full ">

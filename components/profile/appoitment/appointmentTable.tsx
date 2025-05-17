@@ -12,6 +12,9 @@ export function AppointmentTable() {
     queryFn: patientAppointments
   })
 
+  console.log(data);
+  
+
   if (isLoading) {
     return (
       <div className="container space-y-4 flex items-center justify-center">
@@ -22,6 +25,6 @@ export function AppointmentTable() {
 
 
   return <>
-    <DataTable data={data?.data || []} columns={Patientcolumns} />
+    <DataTable data={data?.data || []} columns={Patientcolumns} initialSorting={[{ id: 'createdAt', desc: true }]} />
   </>
 }

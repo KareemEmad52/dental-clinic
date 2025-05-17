@@ -101,7 +101,7 @@ export default function DoctorAppointments() {
 
       </div>
       {/* <Separator /> */}
-      <DataTable data={Array.isArray(data?.data?.appointments) ? data.data.appointments : []} columns={columns} />
+      <DataTable data={Array.isArray(data?.data?.appointments) ? data.data.appointments : []} columns={columns} initialSorting={[{ id: "createdAt", desc: true }]} />
     </div>
   );
 }

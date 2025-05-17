@@ -3,6 +3,7 @@ import {
   GetDoctorInfoResponse,
   GetPatientAppointmentsResponse,
   GetUserInfoResponse,
+  PatientInvoices,
   User,
 } from "@/types/types";
 import { Service } from "@prisma/client";
@@ -56,9 +57,30 @@ export const doctorAppointments = async () => {
   return res.data;
 };
 
-export const patientAppointments = async (): Promise<ActionResponse<GetPatientAppointmentsResponse[]>> => {
+export const patientAppointments = async (): Promise<
+  ActionResponse<GetPatientAppointmentsResponse[]>
+> => {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/patient/appointments`
+  );
+  return res.data;
+};
+
+export const getPatientSpecificInvoice = async (
+  id: string
+): Promise<ActionResponse<PatientInvoices>> => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/invoice/${id}`
+  );
+  return res.data;
+};
+
+
+export const getPatientInvoices = async (
+  id: string
+): Promise<ActionResponse<PatientInvoices[]>> => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/invoice/`
   );
   return res.data;
 };

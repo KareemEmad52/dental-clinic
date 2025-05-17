@@ -76,33 +76,59 @@ export type DoctorAppointmentsResponseData = {
   };
 };
 
-
 export type GetPatientAppointmentsResponse = {
-  id: string
-  patientId: string
-  doctorId: string
-  serviceId: string
-  startTime: string
-  endTime: string
-  status: string
-  notes: any
-  createdAt: string
-  updatedAt: string
+  id: string;
+  patientId: string;
+  doctorId: string;
+  serviceId: string;
+  startTime: string;
+  endTime: string;
+  status: string;
+  notes: any;
+  createdAt: string;
+  updatedAt: string;
   service: {
-    name: string
-    description: string
-    price: number
-    duration: number
-  }
+    name: string;
+    description: string;
+    price: number;
+    duration: number;
+  };
   doctor: {
-    name: string
-    email: string
-    image: string
+    name: string;
+    email: string;
+    image: string;
     doctorProfile: {
-      specialty: string
-      bio: string
-      qualifications: string
-      photoUrl: string
-    }
-  }
-}
+      specialty: string;
+      bio: string;
+      qualifications: string;
+      photoUrl: string;
+    };
+  };
+};
+
+export type PatientInvoices = {
+  id: string;
+  amount: number;
+  issuedAt: string;
+  paidAt: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  appointment: {
+    startTime: string;
+    service: {
+      name: string;
+      price: number;
+      duration: number;
+    };
+    doctor: {
+      name: string;
+      email: string;
+    };
+
+    patient: {
+      name: string;
+      email: string;
+    };
+  };
+};

@@ -105,7 +105,7 @@ export const Patientcolumns: ColumnDef<GetPatientAppointmentsResponse>[] = [
     
   },
   {
-    accessorKey: "startTime",
+    accessorKey: "createdAt",
     header: ({ column }) => {
       return (
         <Button

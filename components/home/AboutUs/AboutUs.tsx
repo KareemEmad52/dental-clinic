@@ -77,43 +77,52 @@ const AboutSection = () => {
   return (
     <motion.section
       ref={ref}
-      className="container my-20"
+      className="container my-10 md:my-20 px-4 md:px-6"
     >
-      <div className="grid grid-cols-12">
-        {/* Image Column */}
-        <div className='md:col-span-6 col-span-12'>
-            <div className={`${styles.aboutImage}`}>
-              <div className={`${styles.aboutImg1}`}>
-                <figure className={`${styles.imageAnime}  ${styles.reveal}`} style={{ transform: "translate(0px, 0px)", opacity: "1", visibility: "inherit" }}>
-                  <img src="/about-us-img-1.jpg" alt="" style={{ transform: "translate(0px, 0px)" }} />
-                </figure>
-              </div>
+      <div className="grid grid-cols-12 gap-8">
+        {/* Image Column - Order changed for mobile view */}
+        <div className='col-span-12 md:col-span-6 order-2 md:order-1'>
+          <div className={`${styles.aboutImage}`}>
+            <div className={`${styles.aboutImg1} w-full md:max-w-full`}>
+              <figure className={`${styles.imageAnime} ${styles.reveal}`} style={{ transform: "translate(0px, 0px)", opacity: "1", visibility: "inherit" }}>
+                <img 
+                  src="/about-us-img-1.jpg" 
+                  alt="Dental consultation" 
+                  className="w-full"
+                  style={{ transform: "translate(0px, 0px)" }} 
+                />
+              </figure>
+            </div>
 
-              <div className={`${styles.aboutImg2}`}>
-                <figure className={`${styles.imageAnime}  ${styles.reveal}`} style={{ transform: "translate(0px, 0px)", opacity: "1", visibility: "inherit" }}>
-                  <img src="/about-us-img-2.jpg" alt="" style={{ transform: "translate(0px, 0px)" }} />
-                </figure>
-              </div>
+            <div className={`${styles.aboutImg2}`}>
+              <figure className={`${styles.imageAnime} ${styles.reveal}`} style={{ transform: "translate(0px, 0px)", opacity: "1", visibility: "inherit" }}>
+                <img 
+                  src="/about-us-img-2.jpg" 
+                  alt="Dental treatment" 
+                  className="w-full"
+                  style={{ transform: "translate(0px, 0px)" }} 
+                />
+              </figure>
+            </div>
 
-              {/* <!-- About Experience Circle Start --> */}
-              <div className={`${styles.aboutExperience}`}>
-                <figure>
-                  <img src="/about-experience-circle.png" alt="" />
-                </figure>
-              </div>
-              {/* <!-- About Experience Circle End --> */}
+            {/* About Experience Circle - Hidden on small devices */}
+            <div className={`${styles.aboutExperience} hidden sm:block`}>
+              <figure>
+                <img src="/about-experience-circle.png" alt="Years of experience" />
+              </figure>
             </div>
           </div>
+        </div>
 
         {/* Content Column */}
-        <div className="md:col-span-6 col-span-12">
+        <div className="col-span-12 md:col-span-6 order-1 md:order-2 mb-8 md:mb-0">
           <div className={`${styles.sectionTitle} w-full`}>
             {/* Subheading */}
             <motion.div
               variants={contentVariants}
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
-              className="flex justify-start items-center gap-2 mb-5"
+              className="flex justify-start items-center gap-2 mb-3 md:mb-5"
             >
               <Image src="/icon-sub-heading.svg" width={15} height={15} alt="star Icon" />
               <h3 className="capitalize font-poppins text-mainLight font-medium">ABOUT US</h3>
@@ -124,7 +133,7 @@ const AboutSection = () => {
               variants={headerContainerVariants}
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
-              className="capitalize font-poppins text-mainDark text-[30px] lg:text-[44px] font-bold leading-[35px] lg:leading-[55px] mb-10"
+              className="capitalize font-poppins text-mainDark text-2xl sm:text-[30px] lg:text-[44px] font-bold leading-tight sm:leading-[35px] lg:leading-[55px] mb-6 md:mb-10"
             >
               {titleWords.map((word, wordIndex) => (
                 <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'pre' }}>
@@ -152,7 +161,7 @@ const AboutSection = () => {
               variants={contentVariants}
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
-              className="text-[#527282] text-[16px] font-poppins lg:pe-8 mb-6"
+              className="text-[#527282] text-base font-poppins lg:pe-8 mb-6"
             >
               The goal of our clinic is to provide friendly, caring dentistry and the highest level of general, cosmetic,
               and specialist dental treatments. With dental practices throughout the world.
@@ -163,23 +172,23 @@ const AboutSection = () => {
               variants={contentContainerVariants}
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
-              className="grid md:grid-cols-2 gap-4 pt-4 mb-10"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 mb-8 md:mb-10"
             >
               <motion.div variants={contentVariants} className="flex items-center gap-2">
                 <Image src="/success-icon-about.svg" width={22} height={22} alt="star Icon" />
-                <span className="font-semibold text-mainDark text-[16px] font-poppins">Experienced Team</span>
+                <span className="font-semibold text-mainDark text-sm md:text-base font-poppins">Experienced Team</span>
               </motion.div>
               <motion.div variants={contentVariants} className="flex items-center gap-2">
                 <Image src="/success-icon-about.svg" width={22} height={22} alt="star Icon" />
-                <span className="font-semibold text-mainDark text-[16px] font-poppins">Comprehensive Services</span>
+                <span className="font-semibold text-mainDark text-sm md:text-base font-poppins">Comprehensive Services</span>
               </motion.div>
               <motion.div variants={contentVariants} className="flex items-center gap-2">
                 <Image src="/success-icon-about.svg" width={22} height={22} alt="star Icon" />
-                <span className="font-semibold text-mainDark text-[16px] font-poppins">State-Of-The-Art Technology</span>
+                <span className="font-semibold text-mainDark text-sm md:text-base font-poppins">State-Of-The-Art Technology</span>
               </motion.div>
               <motion.div variants={contentVariants} className="flex items-center gap-2">
                 <Image src="/success-icon-about.svg" width={22} height={22} alt="star Icon" />
-                <span className="font-semibold text-mainDark text-[16px] font-poppins">Emergency Dental Services</span>
+                <span className="font-semibold text-mainDark text-sm md:text-base font-poppins">Emergency Dental Services</span>
               </motion.div>
             </motion.div>
 

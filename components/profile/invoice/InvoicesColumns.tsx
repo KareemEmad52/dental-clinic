@@ -1,21 +1,19 @@
 "use client"
 
-import { DoctorAppointmentsResponseData } from "@/types/types"
-import { truncateLongWords } from "@/utils/transcate-words"
+import { PatientInvoices } from "@/types/types"
 import { ColumnDef } from "@tanstack/react-table"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
-import { Button } from "../ui/button"
-import { ArrowUpDown, Calendar, Check, Circle, CircleCheck, LucideChevronsUpDown, MoreHorizontal, X } from "lucide-react"
-import { Badge } from "../ui/badge"
-import { stat } from "fs"
-import { AppointmentStatus } from "@prisma/client"
-import { JSX } from "react"
+import { Button } from "../../ui/button"
+import { LucideChevronsUpDown } from "lucide-react"
+import { Badge } from "../../ui/badge"
 import { format } from "date-fns"
-import { Checkbox } from "../ui/checkbox"
-import { UpdateStatus } from "./updateStatus"
+import { Checkbox } from "../../ui/checkbox"
+
+import { BadgeSuccess } from "@/components/ui/BadgeSuccess"
+import BadgePending from "@/components/ui/PendingBadge"
+import { RedirectToPayment } from "./redirectToPayment"
 
 
-export const columns: ColumnDef<DoctorAppointmentsResponseData["appointments"]>[] = [
+export const Invoicescolumns: ColumnDef<PatientInvoices>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -39,50 +37,46 @@ export const columns: ColumnDef<DoctorAppointmentsResponseData["appointments"]>[
     enableHiding: false,
   },
   {
-    accessorKey: "patient.name",
-    header: "Patient Name",
+    accessorKey: "doctor.name",
+    header: "Doctor Name",
     cell: ({ row }) => {
-      const name: string = row.original.patient.name as string
+      const name: string = row.original.appointment.doctor.name as string
       return <div>{name?.split(" ").slice(0, 2).join(" ")}</div>
     }
   },
   {
-    accessorKey: "patient.email",
+    accessorKey: "appointment.doctor.email",
     header: "Email",
     id: "email",
   },
   {
-    accessorKey: "service.name",
+    accessorKey: "appointment.service.name",
     header: "Service",
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: "Payment Status",
     cell: ({ row }) => {
       const status: string = row.original.status as string;
-      let badgeColor: string;
+      let badgeColor: React.ReactNode;
+
+
 
       switch (status.toUpperCase()) {
-        case "SCHEDULED":
-          badgeColor = "bg-blue-500 text-white";
+        case "PAID":
+          badgeColor = <BadgeSuccess text={status} />;
           break;
-        case "CONFIRMED":
-          badgeColor = "bg-green-500 text-white";
-          break;
-        case "COMPLETED":
-          badgeColor = "bg-gray-500 text-white";
-          break;
-        case "CANCELLED":
-          badgeColor = "bg-red-500 text-white";
+        case "PENDING":
+          badgeColor = <BadgePending />;
           break;
         default:
-          badgeColor = "bg-gray-200 text-gray-800"; // Fallback for unexpected status
+          <Badge variant={"outline"} >
+            {status}
+          </Badge>; // Fallback for unexpected status
       }
 
       return (
-        <Badge className={`capitalize ${badgeColor}`}>
-          {status}
-        </Badge>
+        badgeColor
       );
     },
   },
@@ -93,7 +87,7 @@ export const columns: ColumnDef<DoctorAppointmentsResponseData["appointments"]>[
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-           className="flex items-center justify-between cursor-pointer w-full"
+          className="flex items-center justify-between cursor-pointer w-full"
         >
           Duration
           <LucideChevronsUpDown />
@@ -101,9 +95,9 @@ export const columns: ColumnDef<DoctorAppointmentsResponseData["appointments"]>[
       )
     },
     cell: ({ row }) => {
-      return <div>{row.original.service.duration} min</div>
+      return <div>{row.original.appointment.service.duration} min</div>
     },
-    
+
   },
   {
     accessorKey: "createdAt",
@@ -119,15 +113,18 @@ export const columns: ColumnDef<DoctorAppointmentsResponseData["appointments"]>[
         </Button>
       )
     },
-    cell: ({ row }) => {      
-      return <div>{format(new Date(row.original.startTime), "PPP")}</div>
+    cell: ({ row }) => {
+      return <div>{format(new Date(row.original.appointment.startTime), "PPP")}</div>
     }
   },
   {
     id: "actions",
     cell: ({ row }) => {
+      const payment = row.original
+
+
       return (
-        <UpdateStatus appointment={row.original}/>
+        <RedirectToPayment id={payment.id} />
       )
     },
   },

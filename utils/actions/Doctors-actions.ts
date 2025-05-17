@@ -9,12 +9,14 @@ import {
 } from "@/utils/validations";
 import { exclude } from "../exclude";
 import { updateDoctorType } from "@/components/profile/UpdateDoctorForm";
-import { AppointmentStatus, Providers, Role } from "@prisma/client";
+import { AppointmentStatus, InvoiceStatus, Providers, Role } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { ActionResponse } from "@/types/types";
 import { actionError, actionSuccess } from "../response";
 import { z } from "zod";
 import { updateStatusSchema } from "@/components/doctorAppointments/updateStatus";
+import axios from "axios";
+import { format } from "date-fns";
 
 export async function SignupDoctor(formData: FormData) {
   const rawData = Object.fromEntries(formData.entries());
@@ -145,11 +147,13 @@ export async function updateDoctorPassword(
       return actionError("Unauthorized: Must be a doctor", null, 401);
     }
 
-    if(!session.user.provider || session.user.provider !== Providers.CREDENTIALS) {
+    if (
+      !session.user.provider ||
+      session.user.provider !== Providers.CREDENTIALS
+    ) {
       return actionError("Must be login with credentials", null, 401);
     }
 
-    
     // Validation
     const validation = updatePasswordSchema.safeParse(data);
     if (!validation.success) {
@@ -182,8 +186,6 @@ export async function updateAppointmentStatus(
       return actionError("Unauthorized: Must be a doctor", null, 401);
     }
 
-
-
     const existDoctor = await prisma.user.findUnique({
       where: { id: session.user.id },
     });
@@ -198,13 +200,71 @@ export async function updateAppointmentStatus(
       return actionError("Appointment not found", null, 404);
     }
 
+    // First update the appointment status in all cases
     const updatedAppointment = await prisma.appointment.update({
       where: { id: appointmentId },
       data: { status: newStatus },
+      include: {
+        patient: true,
+        doctor: true,
+        service: true,
+      },
     });
+
+    if (newStatus === "CONFIRMED") {
+      try {
+        // Send email confirmation to patient
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/emails/send-booking-email`,
+          {
+            to: updatedAppointment.patient.email,
+            date: format(updatedAppointment.startTime, "PPP"),
+            time: format(updatedAppointment.startTime, "hh:mm a"),
+            service: updatedAppointment.service.name,
+            dentist: updatedAppointment.doctor.name,
+            location: "BrightSmile Dental - Downtown",
+            address: "123 Main Street, Suite 200, Cityville, ST 12345",
+            patientName: updatedAppointment.patient.name,
+            bookingId: updatedAppointment.id,
+          }
+        );
+      } catch (emailError) {
+        console.error("Failed to send confirmation email:", emailError);
+        // Continue execution - don't fail the whole operation if just the email fails
+      }
+
+      // Check for existing invoice
+      const existingInvoice = await prisma.invoice.findFirst({
+        where: { 
+          appointmentId: updatedAppointment.id 
+        }
+      });
+
+      if (!existingInvoice) {
+        // Create new invoice if none exists
+        await prisma.invoice.create({
+          data: {
+            userId: updatedAppointment.patient.id, // Should be patient's ID, not doctor's
+            amount: updatedAppointment.service.price,
+            appointmentId: updatedAppointment.id,
+            issuedAt: new Date(),
+            status: InvoiceStatus.PAID, 
+          },
+        });
+      } else {
+        // Update existing invoice to paid
+        await prisma.invoice.update({
+          where: { id: existingInvoice.id },
+          data: {
+            status: InvoiceStatus.PAID,
+          },
+        });
+      }
+    }
 
     return actionSuccess("Status updated successfully", updatedAppointment);
   } catch (error) {
+    console.error("Error updating appointment status:", error);
     return actionError("Failed to update status", error, 500);
   }
 }
