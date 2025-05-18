@@ -99,7 +99,6 @@ export const BookAppointmentsForm = () => {
     try {
       setIsLoading(true)
       const res = await MakeAppointment(data)
-      console.log(res);
       if (res.success){
         toast.success("Appointment made successfully")
         form.reset()

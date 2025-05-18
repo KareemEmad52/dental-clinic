@@ -5,22 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const session = {
-      user: {
-        name: "kareem emad",
-        email: "kareememad209@gmail.com",
-        image:
-          "https://lh3.googleusercontent.com/a/ACg8ocKb3eTDznYfsvn0r8GKjCq5Pb_qx4A_DVnrrPOfjPGvZYRxYXj4=s96-c",
-        id: "cmafh47y00001hr3kcigjl1l9",
-        role: "PATIENT",
-        phone: "01154027591",
-        address: null,
-        gender: "MALE",
-        dateOfBirth: "2003-02-12T22:00:00.000Z",
-        provider: "OAUTH",
-      },
-      expires: "2025-06-16T15:46:44.361Z",
-    };
+    const session = await auth();
     if (!session || !session.user || session.user.role !== "PATIENT") {
       return NextResponse.json(
         actionError("Unauthorized: Must be a patient", null, 401),

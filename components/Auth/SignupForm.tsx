@@ -62,7 +62,6 @@ export default function SignupForm() {
     formData.append("email", data.email)
     formData.append("password", data.password)
     const res = await SignupUser(formData)
-    console.log(res)
     setLoading(false)
   }
 

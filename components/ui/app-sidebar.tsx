@@ -24,13 +24,8 @@ const items = [
     icon: Home,
   },
   {
-    title: "Doctors",
-    url: "",
-    icon: User,
-  },
-  {
     title: "Book Appointment",
-    url: "/book-appointment",
+    url: "/appointments",
     icon: Calendar,
   },
   {

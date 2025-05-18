@@ -30,7 +30,7 @@ export default function DoctorAppointments() {
   })
 
 
-  console.log(data);
+
 
 
   const statistics: AppointmentStatistics = data?.data?.statistics || {

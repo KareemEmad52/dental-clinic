@@ -13,7 +13,7 @@ export async function updatePatientInfo(data: Partial<updatePatientType>) {
         // Check if the user is authenticated and has the role of "doctor"
         const session = await auth();
 
-        console.log("hereee");
+
         
 
         if (!session || !session.user || session.user.role !== Role.PATIENT) {
@@ -121,7 +121,7 @@ export async function MakeAppointment(data: {doctorId: string, serviceId: string
 
           const endTime = new Date(startTime.getTime() + service.duration * 60 * 1000);
 
-          console.log(endTime);
+
           
 
 

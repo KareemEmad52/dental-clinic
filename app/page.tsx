@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const sessoin = await auth();
-  console.log(sessoin);
   
   return (
     <>

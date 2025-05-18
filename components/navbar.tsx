@@ -49,22 +49,6 @@ export default async function Navbar() {
                   Contact
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/"
-                  className="text-mainDark text-md font-medium font-poppins hover:text-mainLight transition-all duration-500 "
-                >
-                  Page
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/"
-                  className="text-mainDark text-md font-medium font-poppins hover:text-mainLight transition-all duration-500 "
-                >
-                  Footer
-                </Link>
-              </li>
             </ul>
           </div>
           {session?.user ? (

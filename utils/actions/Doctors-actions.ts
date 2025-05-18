@@ -244,7 +244,7 @@ export async function updateAppointmentStatus(
         // Create new invoice if none exists
         await prisma.invoice.create({
           data: {
-            userId: updatedAppointment.patient.id, // Should be patient's ID, not doctor's
+            userId: updatedAppointment.patient.id,
             amount: updatedAppointment.service.price,
             appointmentId: updatedAppointment.id,
             issuedAt: new Date(),

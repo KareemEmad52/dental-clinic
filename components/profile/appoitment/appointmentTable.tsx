@@ -12,8 +12,6 @@ export function AppointmentTable() {
     queryFn: patientAppointments
   })
 
-  console.log(data);
-  
 
   if (isLoading) {
     return (

@@ -39,7 +39,7 @@ export function UpdateStatus({ appointment }: UpdateStatusProps) {
 
 
   const onSubmit = async (data: z.infer<typeof updateStatusSchema>) => {
-    console.log(data);
+
     
     setIsLoading(true);
     try {

@@ -88,7 +88,7 @@ export default function LoginForm() {
     formData.append("password", data.password)
     setLoading(true)
     const res = await SigninWithCredentials(formData)
-    console.log(res)
+
     if (res.success) {
       // router.prefetch("/")
       // await new Promise((resolve) => setTimeout(resolve, 2000))
@@ -108,14 +108,12 @@ export default function LoginForm() {
   const handleGitHubSignIn = async () => {
     setGithubLoading(true)
     const result = await signInWithGitHub()
-    console.log(result);
     setGithubLoading(false)
   }
 
   const handleGoogleSignIn = async () => {
     setGoogleLoading(true)
     const result = await signInWithGoogle()
-    console.log(result);
     setGoogleLoading(false)
   }
 

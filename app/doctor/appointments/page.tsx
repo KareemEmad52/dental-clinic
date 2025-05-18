@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const session = await auth()
-    console.log("session fromappointments", session);
+
     
     if(  session?.user && session?.user.role !== Role.DOCTOR) {
         redirect('/')

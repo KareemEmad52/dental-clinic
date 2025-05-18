@@ -3,7 +3,7 @@
 import { PatientInvoices } from "@/types/types"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "../../ui/button"
-import { LucideChevronsUpDown } from "lucide-react"
+import { LucideChevronsUpDown, MoreHorizontal } from "lucide-react"
 import { Badge } from "../../ui/badge"
 import { format } from "date-fns"
 import { Checkbox } from "../../ui/checkbox"
@@ -11,6 +11,8 @@ import { Checkbox } from "../../ui/checkbox"
 import { BadgeSuccess } from "@/components/ui/BadgeSuccess"
 import BadgePending from "@/components/ui/PendingBadge"
 import { RedirectToPayment } from "./redirectToPayment"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import Link from "next/link"
 
 
 export const Invoicescolumns: ColumnDef<PatientInvoices>[] = [
@@ -124,7 +126,28 @@ export const Invoicescolumns: ColumnDef<PatientInvoices>[] = [
 
 
       return (
-        <RedirectToPayment id={payment.id} />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <Link href={`/invoice/payment/${payment.id}`}>
+              <DropdownMenuItem>
+                Pay Invoice
+              </DropdownMenuItem>
+            </Link>
+            <DropdownMenuSeparator />
+            <Link href={`/invoice/${payment.id}`}>
+              <DropdownMenuItem>View Invoice</DropdownMenuItem>
+            </Link>
+            <DropdownMenuItem>View payment details</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       )
     },
   },
