@@ -145,7 +145,6 @@ export const Invoicescolumns: ColumnDef<PatientInvoices>[] = [
             <Link href={`/invoice/${payment.id}`}>
               <DropdownMenuItem>View Invoice</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

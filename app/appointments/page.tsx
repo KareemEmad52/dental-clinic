@@ -19,10 +19,10 @@ export default function Appointments() {
         <>
             <div className="w-full min-h-screen flex justify-center items-center">
                 <Card className="w-full md:w-2/3 shadow-lg my-5 ">
-                    <CardHeader>
+                    <CardHeader >
                         <BookAppointmentHeader />
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="px-1 md:px-5" >
                         <BookAppointmentsForm />
                     </CardContent>
                 </Card>

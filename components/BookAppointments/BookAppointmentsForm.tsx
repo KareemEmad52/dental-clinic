@@ -89,7 +89,7 @@ export const BookAppointmentsForm = () => {
       });
     },
     enabled: !!(watchedDoctorId && watchedServiceId && watchedDate),
-    staleTime: 1000 * 60 * 5, // Cache for 5 minutes
+    staleTime: 1000 * 60 , // Cache for 1 minutes
   });
 
 
@@ -126,9 +126,9 @@ export const BookAppointmentsForm = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-4">
-      <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+    <div className="w-full  flex flex-col gap-4 md:p-4 py-4 px-1">
+      <FormProvider {...form}  >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full ">
           <div className="space-y-4">
             <div className="space-y-2">
               <Controller

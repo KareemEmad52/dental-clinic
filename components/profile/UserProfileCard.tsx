@@ -66,18 +66,18 @@ export const UserProfileCard = () => {
         </TabsContent>
         
         <TabsContent value="appointments" className="m-0">
-          <CardContent className="p-6">
+          <CardContent className="md:p-6 py-6 px-2">
             <h2 className="text-xl font-medium mb-6">Your Appointments</h2>
-            <div className="bg-muted/50 rounded-lg p-8 text-center">
+            <div className="bg-muted/50 rounded-lg w-full  md:p-8 text-center">
               <AppointmentTable />
             </div>
           </CardContent>
         </TabsContent>
         
         <TabsContent value="invoice" className="m-0">
-          <CardContent className="p-6">
+          <CardContent className="md:p-6 py-6 px-2">
             <h2 className="text-xl font-medium mb-6">Your Invoices</h2>
-            <div className="bg-muted/50 rounded-lg p-8 text-center">
+            <div className="bg-muted/50 rounded-lg md:p-8 text-center">
              <InvoicesTable />
             </div>
           </CardContent>

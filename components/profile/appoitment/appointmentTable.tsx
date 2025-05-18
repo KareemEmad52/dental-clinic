@@ -1,3 +1,6 @@
+"use client";
+
+
 import { DataTable } from "@/components/doctorAppointments/data-table";
 import { ActionResponse, GetPatientAppointmentsResponse } from "@/types/types";
 import { patientAppointments } from "@/utils/api";

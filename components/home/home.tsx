@@ -17,15 +17,15 @@ export default async function HomePage() {
 
   return (
     <>
-      
+
 
       <HeroSection />
 
       <CallToActionSection />
 
       {/* About Us Section */}
-      
-      
+
+
 
       <AboutSection />
 

@@ -12,12 +12,14 @@ import {
 import { auth } from "@/lib/auth";
 import { handleLogout } from "@/utils/actions/Auth-actions";
 import Link from "next/link";
+import Image from "next/image";
 
 export async function UserAvatar() {
   const session = await auth();
 
 
   const isDoctor = session?.user.role === "DOCTOR";
+  const isPatient = session?.user.role === "PATIENT";
 
 
 
@@ -65,6 +67,27 @@ export async function UserAvatar() {
               </DropdownMenuItem>
             </Link>
           )}
+
+           {isPatient && (
+            <Link href="/patient/appointments">
+              <DropdownMenuItem>
+                <Calendar className="mr-2 h-4 w-4" />
+                <span>My Appointments</span>
+              </DropdownMenuItem>
+            </Link>
+          )}
+
+          {isPatient && (
+            <Link href="/invoice">
+              <DropdownMenuItem>
+                <Image src="/invoice.svg" width={16} height={16} alt="star Icon" className="mr-2 h-4 w-4" />
+                <span>My Invoices</span>
+              </DropdownMenuItem>
+            </Link>
+          )}
+
+
+         
           <DropdownMenuItem>
             <Settings className="mr-2 h-4 w-4" />
             <span>Settings</span>
